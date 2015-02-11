@@ -5,6 +5,9 @@
  */
 package sdb;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Tevan
@@ -14,13 +17,13 @@ public class person {
     String firstName;
     String lastName;
     String address;
-    //TODO email array/hashset?
-
-    public person(String id, String firstName, String lastName, String address) {
+    Set<String> emails = new HashSet<String>();
+    public person(String id, String firstName, String lastName, String address, Set<String> emails) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
+        this.emails = emails;
     }
 
     public String getId() {
