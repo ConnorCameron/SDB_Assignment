@@ -5,18 +5,22 @@
  */
 package sdb;
 
+import java.util.Set;
+
 /**
  *
  * @author Tevan
  */
-public class broker extends person {
-    Boolean isExpert;
-    String secID;
+public class Broker extends Person {
+    
+    private Boolean isExpert;
+    private String secID;
 
-    public broker(Boolean isExpert, String secID, String id, String firstName, String lastName, String address) {
-        super(id, firstName, lastName, address);
+    public Broker(Boolean isExpert, String secID, String id, String firstName, String lastName, String address, Set<String> emails) {
+        super(id, firstName, lastName, address, emails);
         this.isExpert = isExpert;
         this.secID = secID;
+        this.emails = emails;
     }
 
     public Boolean getIsExpert() {

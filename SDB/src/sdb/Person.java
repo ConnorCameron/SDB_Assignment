@@ -12,13 +12,15 @@ import java.util.Set;
  *
  * @author Tevan
  */
-public class person {
-    String id;
-    String firstName;
-    String lastName;
-    String address;
-    Set<String> emails = new HashSet<String>();
-    public person(String id, String firstName, String lastName, String address, Set<String> emails) {
+public class Person {
+    
+    protected String id;
+    protected String firstName;
+    protected String lastName;
+    protected String address;
+    protected Set<String> emails = new HashSet<String>();
+    
+    public Person(String id, String firstName, String lastName, String address, Set<String> emails) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
