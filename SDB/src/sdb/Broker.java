@@ -12,8 +12,9 @@ import java.util.Set;
  * @author Tevan
  */
 public class Broker extends Person {
-    Boolean isExpert;
-    String secID;
+    
+    private Boolean isExpert;
+    private String secID;
 
     public Broker(Boolean isExpert, String secID, String id, String firstName, String lastName, String address, Set<String> emails) {
         super(id, firstName, lastName, address, emails);
