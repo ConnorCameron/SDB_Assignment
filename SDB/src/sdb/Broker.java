@@ -16,7 +16,7 @@ public class Broker extends Person {
     private Boolean isExpert;
     private String secID;
 
-    public Broker(Boolean isExpert, String secID, String id, String firstName, String lastName, String address, Set<String> emails) {
+    public Broker(Boolean isExpert, String secID, String id, String firstName, String lastName, Address address, Set<String> emails) {
         super(id, firstName, lastName, address, emails);
         this.isExpert = isExpert;
         this.secID = secID;

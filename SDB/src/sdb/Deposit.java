@@ -14,9 +14,8 @@ public class Deposit extends Asset {
     private double balance;
     private double apr;
 
-    public Deposit(double balance, double apr, String code, String label) {
+    public Deposit(double apr, String code, String label) {
         super(code, label);
-        this.balance = balance;
         this.apr = apr;
     }
     
