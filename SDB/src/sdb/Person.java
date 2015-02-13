@@ -17,10 +17,10 @@ public class Person {
     protected String id;
     protected String firstName;
     protected String lastName;
-    protected String address;
+    protected Address address;
     protected Set<String> emails = new HashSet<String>();
     
-    public Person(String id, String firstName, String lastName, String address, Set<String> emails) {
+    public Person(String id, String firstName, String lastName, Address address, Set<String> emails) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,38 +29,20 @@ public class Person {
     }
 
     public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        return this.id;
     }
 
     public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    
-    
+    public Address getAddress() {
+        return this.address;
+    }  
 }
 
 
