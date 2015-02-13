@@ -35,8 +35,11 @@ public class SDBDemo {
         Set<Person> persons = new HashSet<Person>();
         Set<Asset> assets = new HashSet<Asset>();
         
-        /* TODO: Update the XML/JSON converter to be its own method if 
-        needed/time allows us to*/
+        /* TODO: Have the process of reading from the data file and splitting 
+                 address and emails up and creating the object be its own method
+                 if time allows.  Also check if we'll even need it again, regardless
+                 We might still keep it
+        */
         try {
             Scanner s = new Scanner(new File("data/Persons.dat"));
             s.nextLine();
