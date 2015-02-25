@@ -32,20 +32,23 @@ public class SDBDemo {
      */
     public static void main(String[] args) {
         
-        Set<Person> persons = new HashSet<Person>();
-        Set<Asset> assets = new HashSet<Asset>();
+        Set<Person> persons;
+        Set<Asset> assets;
         
         /* TODO: Have the process of reading from the data file and splitting 
                  address and emails up and creating the object be its own method
                  if time allows.  Also check if we'll even need it again, regardless
                  We might still keep it
         */
+        /*
         try {
             Scanner s = new Scanner(new File("data/Persons.dat"));
             s.nextLine();
+        */
             /* Goes through file and tokens, splits things when needed (Address)
                Makes minor adjustments if necessary then makes the object
             */
+            /*
             while(s.hasNext()) {
                 String line = s.nextLine();
                 String[] token = line.split(";");
@@ -96,9 +99,12 @@ public class SDBDemo {
                 }
             }
             
-            s = new Scanner(new File("Data/Assets.dat"));
+            s = new Scanner(new File("data/Assets.dat"));
             s.nextLine();
+            
+            */
             /* Checks type and constructs necessary object */
+            /*
             while(s.hasNext()) {
                 String line = s.nextLine();
                 String[] token = line.split(";");
@@ -119,7 +125,13 @@ public class SDBDemo {
             System.out.println("File Not Found...");
             Logger.getLogger(SDBDemo.class.getName()).log(Level.SEVERE, null, ex);
         }
+            */
         
+        
+        DataConverter converter = DataConverter.getInstance();
+        
+        persons = converter.processPersons("Persons.dat");
+        assets = converter.processAssets("Assets.dat");
         
         /* Xstream and Gson setup for person and assets, then prints them out */
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
