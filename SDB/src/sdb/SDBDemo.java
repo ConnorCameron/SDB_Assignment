@@ -35,101 +35,11 @@ public class SDBDemo {
         Set<Person> persons;
         Set<Asset> assets;
         
-        /* TODO: Have the process of reading from the data file and splitting 
-                 address and emails up and creating the object be its own method
-                 if time allows.  Also check if we'll even need it again, regardless
-                 We might still keep it
-        */
-        /*
-        try {
-            Scanner s = new Scanner(new File("data/Persons.dat"));
-            s.nextLine();
-        */
-            /* Goes through file and tokens, splits things when needed (Address)
-               Makes minor adjustments if necessary then makes the object
-            */
-            /*
-            while(s.hasNext()) {
-                String line = s.nextLine();
-                String[] token = line.split(";");
-
-                if (token[1].isEmpty()) {
-                    String [] name = token[2].split(",");
-                    String fName = name[1].trim();
-                    String lName = name[0].trim();
-
-                    String [] Address = token[3].split(",");
-                    Address ad = new Address(Address[0].trim(), Address[4].trim(), Address[1].trim(), Address[2].trim(), Address[3].trim());
-                    
-                    Set<String> setmails = new HashSet<String>();
-                    
-                    if(token.length >= 5) {
-                        String [] Emails = token[4].split(",");
-
-                        for(String element : Emails) {
-                            setmails.add(element);
-                        }
-                    }
-
-                    Person client = new Person(token[0], fName, lName, ad, setmails);
-
-                    persons.add(client);
-                } else {
-                    String [] broker = token[1].split(",");
-                    Boolean isExpert = false;
-                    if ("E".equals(broker[0])) {
-                        isExpert = true;
-                    }
-                    String ident = broker[1];
-
-                    String [] name = token[2].split(",");
-                    String fName = name[1].trim();
-                    String lName = name[0].trim();
-
-                    String [] Address = token[3].split(",");
-                    Address ad = new Address(Address[0].trim(), Address[4].trim(), Address[1].trim(), Address[2].trim(), Address[3].trim());
-                    Set<String> setmails = new HashSet<String>();
-                    if(token.length >= 5) {
-                        String [] Emails = token[4].split(",");
-                        setmails.addAll(Arrays.asList(Emails));
-                    }
-
-                    Broker bro = new Broker(isExpert, ident, token[0], fName, lName, ad, setmails);
-                    persons.add(bro);
-                }
-            }
-            
-            s = new Scanner(new File("data/Assets.dat"));
-            s.nextLine();
-            
-            */
-            /* Checks type and constructs necessary object */
-            /*
-            while(s.hasNext()) {
-                String line = s.nextLine();
-                String[] token = line.split(";");
-                if ("D".equals(token[1])) {
-                    Deposit deposit = new Deposit(Double.parseDouble(token[3]), token[0], token[1]);
-                    assets.add(deposit);
-                } else if ("S".equals(token[1])) {
-                    Stock stock = new Stock(Double.parseDouble(token[3]), Double.parseDouble(token[4]), Double.parseDouble(token[5]), token[6], Double.parseDouble(token[7]), token[0], token[1]);
-                    assets.add(stock);
-                } else if ("P".equals(token[1])) {
-                    PrivateInvestment pi = new PrivateInvestment(Double.parseDouble(token[3]), Double.parseDouble(token[4]), Double.parseDouble(token[5]), Double.parseDouble(token[6]), token[0], token[1]);
-                    assets.add(pi);
-                }
-            }
-            
-            s.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("File Not Found...");
-            Logger.getLogger(SDBDemo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            */
         
-        
+        //Calls DataConverter
         DataConverter converter = DataConverter.getInstance();
         
+        //Calls the dataconverter
         persons = converter.processPersons("Persons.dat");
         assets = converter.processAssets("Assets.dat");
         
