@@ -36,12 +36,14 @@ public class DataConverter {
         return instance;
     }
     
+    //Opening the ifle
     public Scanner openFile(String fileName) throws FileNotFoundException {
         Scanner s = new Scanner(new File(path + fileName));
         s.nextLine();
         return s;
     }
     
+    //Setting up and returning the set of persons
     public Set<Person> processPersons(String fileName) {
         Set<Person> persons = new HashSet<Person>();
         Scanner s;
@@ -53,12 +55,13 @@ public class DataConverter {
             }
             s.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataConverter.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("File not found...");
         }
         
         return persons;
     }
     
+    //Setting up an dreturning the set of assets
     public Set<Asset> processAssets(String fileName) {
         Set<Asset> assets = new HashSet<Asset>();
         Scanner s;
@@ -75,6 +78,7 @@ public class DataConverter {
         return assets;
     }
     
+    //Going through a line of text input and tokenizing it and constructing a Person, and returning it for the processPersons method
     private Person processPerson(String line) {
         String[] token = line.split(";");
                 if (token[1].isEmpty()) {
@@ -123,6 +127,7 @@ public class DataConverter {
                 }
     }
     
+        //Going through a line of text input and tokenizing it and constructing a Asset, and returning it for the processAssets method
     private Asset processAsset(String line) {
         String[] token = line.split(";");
                 if ("D".equals(token[1])) {
