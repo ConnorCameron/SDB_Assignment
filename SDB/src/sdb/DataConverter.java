@@ -12,8 +12,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -131,13 +129,13 @@ public class DataConverter {
     private Asset processAsset(String line) {
         String[] token = line.split(";");
                 if ("D".equals(token[1])) {
-                    Deposit deposit = new Deposit(Double.parseDouble(token[3]), token[0], token[1]);
+                    Deposit deposit = new Deposit(token[0], token[2], Double.parseDouble(token[3]));
                     return deposit;
                 } else if ("S".equals(token[1])) {
-                    Stock stock = new Stock(Double.parseDouble(token[3]), Double.parseDouble(token[4]), Double.parseDouble(token[5]), token[6], Double.parseDouble(token[7]), token[0], token[1]);
+                    Stock stock = new Stock(Double.parseDouble(token[3]), Double.parseDouble(token[4]), token[6], Double.parseDouble(token[7]), token[0], token[1], Double.parseDouble(token[5]));
                     return stock;
                 } else if ("P".equals(token[1])) {
-                    PrivateInvestment pi = new PrivateInvestment(Double.parseDouble(token[3]), Double.parseDouble(token[4]), Double.parseDouble(token[5]), Double.parseDouble(token[6]), token[0], token[1]);
+                    PrivateInvestment pi = new PrivateInvestment(Double.parseDouble(token[3]), Double.parseDouble(token[4]), Double.parseDouble(token[6]), token[0], token[1], Double.parseDouble(token[5]));
                     return pi;
                 }
         return null;
