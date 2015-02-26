@@ -12,23 +12,23 @@ package sdb;
  */
 public class Deposit extends Asset {
     private double balance;
-    private double apr;
 
-    public Deposit(double apr, String code, String label) {
-        super(code, label);
-        this.apr = apr;
+    public Deposit(String code, String label, double rateOfReturn, double risk) {
+        super(code, label, rateOfReturn, risk);
     }
     
     public double getBalance() {
         return balance;
-    }
-
-    public double getApr() {
-        return apr;
     }
     
     @Override
     public String getType() {
         return "D";
     }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+    
+    
 }
