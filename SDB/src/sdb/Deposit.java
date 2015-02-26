@@ -13,9 +13,8 @@ package sdb;
 public class Deposit extends Asset {
     private double balance;
 
-    public Deposit(double balance, String code, String label, double rateOfReturn) {
-        super(code, label, rateOfReturn);
-        this.balance = balance;
+    public Deposit(String code, String label, double rateOfReturn, double risk) {
+        super(code, label, rateOfReturn, risk);
     }
     
     public double getBalance() {

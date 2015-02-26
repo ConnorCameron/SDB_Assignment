@@ -15,11 +15,13 @@ public abstract class Asset {
     protected String code;
     protected String label;
     protected double rateOfReturn;
+    protected double risk;
 
-    public Asset(String code, String label, double rateOfReturn) {
+    public Asset(String code, String label, double rateOfReturn, double risk) {
         this.code = code;
         this.label = label;
         this.rateOfReturn = rateOfReturn;
+        this.risk = risk;
     }
 
     

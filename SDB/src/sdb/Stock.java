@@ -12,29 +12,19 @@ package sdb;
  */
 public class Stock extends Asset {
     private double quarterlyDivident;
-    private double baseRateOfReturn;
     private String stockSymbol;
     private double sharePrice;
     private double numOfStocks;
 
-    public Stock(double quarterlyDivident, double baseRateOfReturn, String stockSymbol, double sharePrice, String code, String label, double rateOfReturn) {
-        super(code, label, rateOfReturn);
+    public Stock(double quarterlyDivident, String stockSymbol, double sharePrice, String code, String label, double rateOfReturn, double risk) {
+        super(code, label, rateOfReturn, risk);
         this.quarterlyDivident = quarterlyDivident;
-        this.baseRateOfReturn = baseRateOfReturn;
         this.stockSymbol = stockSymbol;
         this.sharePrice = sharePrice;
     }
-
-    
-
-    
     
     public double getQuarterlyDivident() {
         return this.quarterlyDivident;
-    }
-
-    public double getBaseRateOfReturn() {
-        return this.baseRateOfReturn;
     }
 
     public double getSharePrice() {
