@@ -129,13 +129,13 @@ public class DataConverter {
     private Asset processAsset(String line) {
         String[] token = line.split(";");
                 if ("D".equals(token[1])) {
-                    Deposit deposit = new Deposit(token[0], token[2], Double.parseDouble(token[3]));
+                    Deposit deposit = new Deposit(token[0], token[2], Double.parseDouble(token[3]), 0.0);
                     return deposit;
                 } else if ("S".equals(token[1])) {
-                    Stock stock = new Stock(Double.parseDouble(token[3]), Double.parseDouble(token[4]), token[6], Double.parseDouble(token[7]), token[0], token[1], Double.parseDouble(token[5]));
+                    Stock stock = new Stock(Double.parseDouble(token[3]), token[6], Double.parseDouble(token[7]), token[0], token[1], Double.parseDouble(token[4]) , Double.parseDouble(token[5]));
                     return stock;
                 } else if ("P".equals(token[1])) {
-                    PrivateInvestment pi = new PrivateInvestment(Double.parseDouble(token[3]), Double.parseDouble(token[4]), Double.parseDouble(token[6]), token[0], token[1], Double.parseDouble(token[5]));
+                    PrivateInvestment pi = new PrivateInvestment(Double.parseDouble(token[3]), Double.parseDouble(token[6]), token[0], token[1], Double.parseDouble(token[5]), Double.parseDouble(token[4]));
                     return pi;
                 }
         return null;

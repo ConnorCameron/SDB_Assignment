@@ -12,14 +12,12 @@ package sdb;
  */
 public class PrivateInvestment extends Asset {
     private double quarterlyDivident;
-    private double baseRateOfReturn;
     private double totalValue;
     private double stake;
 
-    public PrivateInvestment(double quarterlyDivident, double baseRateOfReturn, double totalValue, String code, String label, double rateOfReturn) {
-        super(code, label, rateOfReturn);
+    public PrivateInvestment(double quarterlyDivident, double totalValue, String code, String label, double rateOfReturn, double risk) {
+        super(code, label, rateOfReturn, risk);
         this.quarterlyDivident = quarterlyDivident;
-        this.baseRateOfReturn = baseRateOfReturn;
         this.totalValue = totalValue;
     }
 
@@ -27,10 +25,6 @@ public class PrivateInvestment extends Asset {
 
     public double getQuarterlyDivident() {
         return quarterlyDivident;
-    }
-
-    public double getBaseRateOfReturn() {
-        return baseRateOfReturn;
     }
 
     public double getTotalValue() {
