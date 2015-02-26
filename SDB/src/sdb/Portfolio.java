@@ -20,6 +20,7 @@ public class Portfolio {
     protected String portfolioCode;
     protected Set<Asset> assets = new HashSet<Asset>();
 
+    //this constructs the portfolio
     public Portfolio(Broker broker, Person beneficiary, Person owner, String portfolioCode) {
         this.broker = broker;
         this.beneficiary = beneficiary;
@@ -27,41 +28,48 @@ public class Portfolio {
         this.portfolioCode = portfolioCode;
     }
 
+    //returns the broker associated with this portfolio
     public Broker getBroker() {
-        return broker;
+        return this.broker;
     }
-
+    
+    //returns the beneficiary associated with this portfolio
     public Person getBeneficiary() {
-        return beneficiary;
+        return this.beneficiary;
     }
 
+    //returns the Owner associated with this portfolio
     public Person getOwner() {
-        return owner;
+        return this.owner;
     }
 
+    //returns the Portfolio code associated with this portfolio
     public String getPortfolioCode() {
-        return portfolioCode;
+        return this.portfolioCode;
     }
 
+    //returns the set of assets that are in this portfolio
     public Set<Asset> getAssets() {
-        return assets;
+        return this.assets;
     }
     
-    
+    //this adds an asset to the set of assets
     public void addAsset(Asset a){
-        assets.add(a);
+        this.assets.add(a);
     }
     
+    //this returns the fees a broker charges
     public double getFees(){
-        if(broker.getIsExpert() == false){
-            return assets.size() * 50;
+        if(this.broker.getIsExpert() == false){
+            return this.assets.size() * 50;
         }else{
-            return assets.size() * 10;
+            return this.assets.size() * 10;
         }
     }
     
+    //this returns the total value of the assets in the portfolio
     public double getTotalValue(){
-        Iterator<Asset> itr = assets.iterator();
+        Iterator<Asset> itr = this.assets.iterator();
         double result = 0;
         while (itr.hasNext()){
             result = itr.next().getTotalValue() + result;
@@ -69,8 +77,9 @@ public class Portfolio {
         return result;
     }
     
+    //this returns the annual return of all the assets
     public double getAnnualReturn(){
-        Iterator<Asset> itr = assets.iterator();
+        Iterator<Asset> itr = this.assets.iterator();
         double result = 0;
         while (itr.hasNext()){
             result = itr.next().getAnnualReturn() + result;
@@ -78,17 +87,19 @@ public class Portfolio {
         return result;
     }
     
+    //this returns the ammount of commissions that a broker makes
     public double getCommissions(){
-        if (broker.getIsExpert() == false){
+        if (this.broker.getIsExpert() == false){
             return this.getAnnualReturn() * .02;
         }else{
             return this.getAnnualReturn() * .05;
         }
     }
     
+    //this returns the weighted risk of all assets
     public double getWeightedRisk(){
         double V = this.getTotalValue();
-        Iterator<Asset> itr = assets.iterator();
+        Iterator<Asset> itr = this.assets.iterator();
         double result = 0;
         while(itr.hasNext()){
             Asset a = itr.next();

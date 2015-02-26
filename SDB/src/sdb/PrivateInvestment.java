@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sdb;
 
 /**
@@ -14,64 +8,49 @@ public class PrivateInvestment extends Asset {
     private double quarterlyDivident;
     private double totalValue;
     private double stake;
-    private double baseRate;
-    private double baseRisk;
 
-    public PrivateInvestment(double quarterlyDivident, double totalValue, double stake, double baseRate, double baseRisk, String code, String label, double rateOfReturn, double risk) {
+    public PrivateInvestment(double quarterlyDivident, double totalValue, double stake, String code, String label, double rateOfReturn, double risk) {
         super(code, label, rateOfReturn, risk);
         this.quarterlyDivident = quarterlyDivident;
         this.totalValue = totalValue;
         this.stake = stake;
-        this.baseRate = baseRate;
-        this.baseRisk = baseRisk;
-    }
-
-    public double getBaseRisk() {
-        return baseRisk;
-    }
-
-    
-
-    public double getBaseRate() {
-        return baseRate;
     }
     
+    //Returns the quarterly dividend
     public double getQuarterlyDivident() {
-        return quarterlyDivident;
+        return this.quarterlyDivident;
     }
 
+    //Returns the total value of the investment
     public double getTotalValueOfInvestment() {
-        return totalValue;
+        return this.totalValue;
     }
     
-    @Override
-    public String getType() {
+	//Returns the type of the asset	@Override    public String getType() {
         return "P";
     }
 
+    //Returns the stake owned
     public double getStake() {
-        return stake;
+        return this.stake;
     }
 
+    //Sets the stake owned
     public void setStake(double stake) {
         this.stake = stake;
     }
     
+    //Returns the total value of a private investment
     @Override
     public double getTotalValue(){
-        return totalValue * stake;
+        return this.totalValue * this.stake;
     }
     
+    //Returns the annual return of a private investment
     @Override
     public double getAnnualReturn(){
-       return (baseRate * this.getTotalValue()) + (4 * quarterlyDivident);
+       return (this.rateOfReturn * this.getTotalValue()) + (4 * this.quarterlyDivident);
     }
     
-    @Override
-    public double getRisk(){
-        double O;
-        O = Math.pow(Math.E, -100000/this.getTotalValue());
-        return this.baseRisk + O;
-    }
 }   
     

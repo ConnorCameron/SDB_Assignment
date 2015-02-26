@@ -16,6 +16,7 @@ public class Broker extends Person {
     private Boolean isExpert;
     private String secID;
 
+    //this constructs the broker
     public Broker(Boolean isExpert, String secID, String id, String firstName, String lastName, Address address, Set<String> emails) {
         super(id, firstName, lastName, address, emails);
         this.isExpert = isExpert;
@@ -23,18 +24,22 @@ public class Broker extends Person {
         this.emails = emails;
     }
 
+    //this tells if the broker is an expert or nah
     public Boolean getIsExpert() {
-        return isExpert;
+        return this.isExpert;
     }
 
+    //this lets you set the broker to expert or junior
     public void setIsExpert(Boolean isExpert) {
         this.isExpert = isExpert;
     }
 
+    //this returns the brokers SEC ID
     public String getSecID() {
-        return secID;
+        return this.secID;
     }
 
+    //this lets you set their SEC ID
     public void setSecID(String secID) {
         this.secID = secID;
     }

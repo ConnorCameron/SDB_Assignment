@@ -25,23 +25,23 @@ public class Address {
     }
 
     public String getStreet() {
-        return street;
+        return this.street;
     }
 
     public String getCountry() {
-        return country;
+        return this.country;
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public String getCity() {
-        return city;
+        return this.city;
     }
 
     public String getZipCode() {
-        return zipCode;
+        return this.zipCode;
     }
     
     

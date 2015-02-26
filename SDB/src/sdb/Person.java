@@ -21,6 +21,7 @@ public class Person {
     protected Address address;
     protected Set<String> emails = new HashSet<String>();
     
+    //this constructs the person
     public Person(String id, String firstName, String lastName, Address address, Set<String> emails) {
         this.id = id;
         this.firstName = firstName;
@@ -29,18 +30,22 @@ public class Person {
         this.emails = emails;
     }
 
+    //this returns the persons ID
     public String getId() {
         return this.id;
     }
 
+    //this returns the persons first name
     public String getFirstName() {
         return this.firstName;
     }
-
+    
+    //thhis returns the persons last name
     public String getLastName() {
         return this.lastName;
     }
 
+    //this returns the persons address
     public Address getAddress() {
         return this.address;
     }  
