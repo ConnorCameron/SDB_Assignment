@@ -76,6 +76,22 @@ public class DataConverter {
         return assets;
     }
     
+    public Set<Portfolio> processPortfolios(String fileName, Set<Asset> assets, Set<Person> persons) {
+        Set<Portfolio> portfolios = new HashSet<Portfolio>();
+        Scanner s;
+        try {
+            s = openFile(fileName);
+            while (s.hasNext()) {
+                Portfolio portfolio = processPortfolio(s.nextLine(), assets, persons);
+                portfolios.add(portfolio);
+            }
+            s.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found...");
+        }
+        return portfolios;
+    }
+    
     //Going through a line of text input and tokenizing it and constructing a Person, and returning it for the processPersons method
     private Person processPerson(String line) {
         String[] token = line.split(";");
@@ -139,6 +155,41 @@ public class DataConverter {
                     return pi;
                 }
         return null;
+    }
+    
+    private Portfolio processPortfolio(String line, Set<Asset> assets, Set<Person> persons) {
+        String [] token = line.split(";");
+        String portCode = token[0];
+        Person owner = Person.findPerson(token[1], persons);
+        Person broker = Person.findPerson(token[2], persons);
+        Person benefit;
+        if (token[3].isEmpty()) {
+            benefit = null;
+        } else {
+            benefit = Person.findPerson(token[3], persons);
+        }
+        Portfolio portfolio = new Portfolio((Broker) broker, benefit, owner, portCode);
+        String [] tokenAssets = token[4].split(",");
+        
+        for(int i = 0; i < tokenAssets.length; i++) {
+            String [] tokenAsset = token[i].split(":");
+            Asset asset = Asset.findAsset(tokenAsset[0], assets);
+            String type = asset.getType();
+            if (type.equals('D')) {
+                Deposit deposit = (Deposit) asset;
+                deposit.setBalance(Double.parseDouble(tokenAsset[1]));
+                portfolio.addAsset(deposit);
+            } else if (type.equals('S')) {
+                Stock stock = (Stock) asset;
+                stock.setNumOfStocks(Double.parseDouble(tokenAsset[1]));
+                portfolio.addAsset(stock);
+            } else if (type.equals('P')) {
+                PrivateInvestment pi = (PrivateInvestment) asset;
+                pi.setStake(Double.parseDouble(tokenAsset[1]));
+                portfolio.addAsset(pi);
+            }
+        }
+        return portfolio;
     }
     
     

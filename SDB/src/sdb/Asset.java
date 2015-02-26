@@ -6,6 +6,9 @@
 
 package sdb;
 
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  *
  * @author Andrew
@@ -51,5 +54,16 @@ public abstract class Asset {
     
     public double getRisk(){
         return 0;
+    }
+    
+    public static Asset findAsset(String code, Set<Asset> assets) {
+        Iterator<Asset> itr = assets.iterator();
+        while(itr.hasNext()) {
+            Asset asset = itr.next();
+            if (asset.code.equals(code)) {
+                return asset;
+            }
+        }
+        return null;
     }
 }

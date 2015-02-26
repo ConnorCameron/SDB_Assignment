@@ -44,6 +44,7 @@ public class PrivateInvestment extends Asset {
         return totalValue;
     }
     
+    @Override
     public String getType() {
         return "P";
     }

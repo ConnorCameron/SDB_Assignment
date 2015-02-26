@@ -6,6 +6,7 @@
 package sdb;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -43,6 +44,17 @@ public class Person {
     public Address getAddress() {
         return this.address;
     }  
+    
+    public static Person findPerson(String code, Set<Person> persons) {
+        Iterator<Person> itr = persons.iterator();
+        while (itr.hasNext()) {
+            Person person = itr.next();
+            if (person.getId().equals(code)) {
+                return person;
+            }
+        }
+        return null;
+    }
 }
 
 

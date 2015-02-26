@@ -40,6 +40,7 @@ public class Stock extends Asset {
         return this.sharePrice;
     }
     
+    @Override
     public String getType() {
         return "S";
     }
