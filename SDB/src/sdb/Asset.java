@@ -50,6 +50,6 @@ public abstract class Asset {
     }
     
     public double getRisk(){
-        return 0;
+        return this.risk;
     }
 }
