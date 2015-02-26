@@ -15,12 +15,21 @@ public class Stock extends Asset {
     private String stockSymbol;
     private double sharePrice;
     private double numOfStocks;
+    private double baseRate;
+    private double betaMeasure;
 
-    public Stock(double quarterlyDivident, String stockSymbol, double sharePrice, String code, String label, double rateOfReturn, double risk) {
+    public Stock(double quarterlyDivident, String stockSymbol, double sharePrice, double numOfStocks, double baseRate, double betaMeasure, String code, String label, double rateOfReturn, double risk) {
         super(code, label, rateOfReturn, risk);
         this.quarterlyDivident = quarterlyDivident;
         this.stockSymbol = stockSymbol;
         this.sharePrice = sharePrice;
+        this.numOfStocks = numOfStocks;
+        this.baseRate = baseRate;
+        this.betaMeasure = betaMeasure;
+    }
+
+    public double getBaseRate() {
+        return baseRate;
     }
     
     public double getQuarterlyDivident() {
@@ -42,14 +51,22 @@ public class Stock extends Asset {
     public double getNumOfStocks() {
         return numOfStocks;
     }
-    
-    public double getTotalValue (){
-        return this.numOfStocks * this.sharePrice;
-    }
 
     public void setNumOfStocks(double numOfStocks) {
         this.numOfStocks = numOfStocks;
     }
     
+    @Override
+    public double getTotalValue(){
+        return sharePrice * numOfStocks;
+    }
     
+    @Override
+    public double getAnnualReturn(){
+        return (baseRate * this.getTotalValue()) + (4 * quarterlyDivident);
+    }
+    
+    public double getRisk(){
+        return betaMeasure;
+    }
 }

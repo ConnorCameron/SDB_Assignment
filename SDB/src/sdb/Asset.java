@@ -41,8 +41,15 @@ public abstract class Asset {
         return rateOfReturn;
     }
     
+    public double getTotalValue(){
+        return 0;
+    }
     
+    public double getAnnualReturn(){
+        return 0;
+    }
     
-    
-    
+    public double getRisk(){
+        return 0;
+    }
 }
