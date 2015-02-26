@@ -9,11 +9,10 @@ public class PrivateInvestment extends Asset {
     private double totalValue;
     private double stake;
 
-    public PrivateInvestment(double quarterlyDivident, double totalValue, double stake, String code, String label, double rateOfReturn, double risk) {
+    public PrivateInvestment(double quarterlyDivident, double totalValue, String code, String label, double rateOfReturn, double risk) {
         super(code, label, rateOfReturn, risk);
         this.quarterlyDivident = quarterlyDivident;
         this.totalValue = totalValue;
-        this.stake = stake;
     }
     
     //Returns the quarterly dividend
@@ -26,7 +25,9 @@ public class PrivateInvestment extends Asset {
         return this.totalValue;
     }
     
-	//Returns the type of the asset	@Override    public String getType() {
+	//Returns the type of the asset	
+    @Override    
+    public String getType() {
         return "P";
     }
 
@@ -51,6 +52,4 @@ public class PrivateInvestment extends Asset {
     public double getAnnualReturn(){
        return (this.rateOfReturn * this.getTotalValue()) + (4 * this.quarterlyDivident);
     }
-    
-}   
-    
+}

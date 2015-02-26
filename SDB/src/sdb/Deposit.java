@@ -14,9 +14,8 @@ public class Deposit extends Asset {
     private double balance;
 
     //this constrcuts the deposit account
-    public Deposit(double balance, String code, String label, double rateOfReturn, double risk) {
+    public Deposit(String code, String label, double rateOfReturn, double risk) {
         super(code, label, rateOfReturn, risk);
-        this.balance = balance;
     }
     
     //this returns the balence
@@ -41,6 +40,10 @@ public class Deposit extends Asset {
          return this.balance;
      }
      
+     //this returns the percentage rate used for annual return
+     public double getPercentageRate() {
+         return Math.pow(Math.E, this.rateOfReturn) - 1;
+     }
      //this returns the annual return
      @Override
      public double getAnnualReturn(){

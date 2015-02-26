@@ -76,6 +76,7 @@ public class DataConverter {
         return assets;
     }
     
+    //setting up and returning a set of portfolios
     public Set<Portfolio> processPortfolios(String fileName, Set<Asset> assets, Set<Person> persons) {
         Set<Portfolio> portfolios = new HashSet<Portfolio>();
         Scanner s;
@@ -157,6 +158,7 @@ public class DataConverter {
         return null;
     }
     
+    //Going through a lien of text input and tokenizing it to construct a portfolio
     private Portfolio processPortfolio(String line, Set<Asset> assets, Set<Person> persons) {
         String [] token = line.split(";");
         String portCode = token[0];

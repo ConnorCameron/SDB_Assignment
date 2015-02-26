@@ -14,12 +14,11 @@ public class Stock extends Asset {
     private double numOfStocks;
 
     //This is the constructer for the stock class
-    public Stock(double quarterlyDivident, String stockSymbol, double sharePrice, double numOfStocks, String code, String label, double rateOfReturn, double risk) {
+    public Stock(double quarterlyDivident, String stockSymbol, double sharePrice, String code, String label, double rateOfReturn, double risk) {
         super(code, label, rateOfReturn, risk);
         this.quarterlyDivident = quarterlyDivident;
         this.stockSymbol = stockSymbol;
         this.sharePrice = sharePrice;
-        this.numOfStocks = numOfStocks;
     }
     
     //this returns the quarterly dividend
@@ -32,7 +31,9 @@ public class Stock extends Asset {
         return this.sharePrice;
     }
     
-	//this returns a character that represents what type of asset it is	@Override    public String getType() {
+    //this returns a character that represents what type of asset it is	
+    @Override    
+    public String getType() {
         return "S";
     }
 
