@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * This class does stock
  */
-
 package sdb;
 
 /**
@@ -16,6 +13,7 @@ public class Stock extends Asset {
     private double sharePrice;
     private double numOfStocks;
 
+    //This is the constructer for the stock class
     public Stock(double quarterlyDivident, String stockSymbol, double sharePrice, String code, String label, double rateOfReturn, double risk) {
         super(code, label, rateOfReturn, risk);
         this.quarterlyDivident = quarterlyDivident;
@@ -23,33 +21,47 @@ public class Stock extends Asset {
         this.sharePrice = sharePrice;
     }
     
+    //this returns the quarterly dividend
     public double getQuarterlyDivident() {
         return this.quarterlyDivident;
     }
-
+    
+    //this returns the share price
     public double getSharePrice() {
         return this.sharePrice;
     }
     
+    //this returns a character that represents what type of asset it is	
+    @Override    
     public String getType() {
         return "S";
     }
 
+    //this returns the stocks symbol
     public String getStockSymbol() {
-        return stockSymbol;
+        return this.stockSymbol;
     }
 
+    //this returns the number of stocks owned
     public double getNumOfStocks() {
-        return numOfStocks;
-    }
-    
-    public double getTotalValue (){
-        return this.numOfStocks * this.sharePrice;
+        return this.numOfStocks;
     }
 
+    //this sets the number of stocks owned 
     public void setNumOfStocks(double numOfStocks) {
         this.numOfStocks = numOfStocks;
     }
     
+    //this returns the total value of all stocks owned
+    @Override
+    public double getTotalValue(){
+        return this.sharePrice * this.numOfStocks;
+    }
+    
+    //this returns the expected annual return
+    @Override
+    public double getAnnualReturn(){
+        return (this.rateOfReturn * this.getTotalValue()) + (4 * this.quarterlyDivident);
+    }
     
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sdb;
 
 /**
@@ -24,24 +19,29 @@ public class Address {
         this.zipCode = zipCode;
     }
 
+    //Returns the street
     public String getStreet() {
-        return street;
+        return this.street;
     }
 
+    //Returns the country
     public String getCountry() {
-        return country;
+        return this.country;
     }
 
+    //Returns the state
     public String getState() {
-        return state;
+        return this.state;
     }
 
+    //Returns the city
     public String getCity() {
-        return city;
+        return this.city;
     }
 
+    //Returns the zipCode
     public String getZipCode() {
-        return zipCode;
+        return this.zipCode;
     }
     
     
