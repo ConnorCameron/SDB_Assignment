@@ -17,6 +17,7 @@ public abstract class Asset {
     protected double rateOfReturn;
     protected double risk;
 
+    //this constructs an asset
     public Asset(String code, String label, double rateOfReturn, double risk) {
         this.code = code;
         this.label = label;
@@ -24,31 +25,37 @@ public abstract class Asset {
         this.risk = risk;
     }
 
-    
+    //this returns the assets code
     public String getCode() {
-        return code;
+        return this.code;
     }
 
+    //this returns the assets label
     public String getLabel() {
-        return label;
+        return this.label;
     }
     
+    //this returns the assets type
     public String getType() {
         return "Asset";
     }
 
+    //this returns the assets rate of return
     public double getRateOfReturn() {
-        return rateOfReturn;
+        return this.rateOfReturn;
     }
     
+    // returns the total value
     public double getTotalValue(){
         return 0;
     }
     
+    //returns the annual reuturn
     public double getAnnualReturn(){
         return 0;
     }
     
+    //retunrs the risk
     public double getRisk(){
         return this.risk;
     }

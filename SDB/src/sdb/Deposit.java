@@ -12,41 +12,42 @@ package sdb;
  */
 public class Deposit extends Asset {
     private double balance;
-    private double APR;
 
-    public Deposit(double balance, double APR, String code, String label, double rateOfReturn, double risk) {
+    //this constrcuts the deposit account
+    public Deposit(double balance, String code, String label, double rateOfReturn, double risk) {
         super(code, label, rateOfReturn, risk);
         this.balance = balance;
-        this.APR = APR;
-    }
-
-    public double getAPR() {
-        return APR;
     }
     
+    //this returns the balence
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
     
+    //this returns the type of asset it is
     @Override
     public String getType() {
         return "D";
     }
 
+    //this sets the balence
     public void setBalance(double balance) {
         this.balance = balance;
     }
     
+    //this returns the balence, which is the total value
     @Override
      public double getTotalValue(){
-         return balance;
+         return this.balance;
      }
      
+     //this returns the annual return
      @Override
      public double getAnnualReturn(){
-        return balance * Math.pow(Math.E, APR) - 1;
+        return this.balance * (Math.pow(Math.E,this.rateOfReturn) - 1);
      }
      
+     //this returns the risk, which is always 0
      @Override
      public double getRisk(){
          return 0;
