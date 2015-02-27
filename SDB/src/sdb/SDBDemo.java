@@ -54,7 +54,7 @@ public class SDBDemo {
                 summaryWriter.println("Portfolio Summary Report");
                 summaryWriter.println("===============================================================================================================================");
                 summaryWriter.printf("%10s    %25s  %20s  %14s  %15s  %20s  %15s  %15s\n", "Portfolio", "Owner", "Manger", "Fees", "Commisions", "Weighted Risk", "Return", "Total");
-                
+                /* Goes through portfolios and keeps track of totals */
                 Iterator<Portfolio> itr = portfolios.iterator();
                 double total = 0;
                 double areturn = 0;
@@ -77,7 +77,7 @@ public class SDBDemo {
                 summaryWriter.println("============================================================================");
                 
                 Iterator<Portfolio> itr2 = portfolios.iterator();
-                
+                /* Gets the details of each portfolio with their assets */
                 while (itr2.hasNext()) {
                     Portfolio portfolio = itr2.next();
                     String fullOwn = portfolio.getOwner().getLastName() + ", " + portfolio.getOwner().getFirstName();
