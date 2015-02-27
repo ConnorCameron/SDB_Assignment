@@ -41,7 +41,8 @@ public class Deposit extends Asset {
      }
      
      //this returns the percentage rate used for annual return
-     public double getPercentageRate() {
+     @Override
+     public double getRateOfReturn() {
          return Math.pow(Math.E, this.rateOfReturn) - 1;
      }
      //this returns the annual return

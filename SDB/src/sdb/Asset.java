@@ -24,7 +24,7 @@ public abstract class Asset {
     public Asset(String code, String label, double rateOfReturn, double risk) {
         this.code = code;
         this.label = label;
-        this.rateOfReturn = rateOfReturn;
+        this.rateOfReturn = rateOfReturn / 100;
         this.risk = risk;
     }
 
@@ -63,6 +63,7 @@ public abstract class Asset {
         return this.risk;
     }
     
+    //finds an asset based on alphanumeric code
     public static Asset findAsset(String code, Set<Asset> assets) {
         Iterator<Asset> itr = assets.iterator();
         while(itr.hasNext()) {

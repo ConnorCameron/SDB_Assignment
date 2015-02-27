@@ -38,7 +38,7 @@ public class PrivateInvestment extends Asset {
 
     //Sets the stake owned
     public void setStake(double stake) {
-        this.stake = stake;
+        this.stake = stake / 100;
     }
     
     //Returns the total value of a private investment

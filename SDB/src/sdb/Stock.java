@@ -55,7 +55,8 @@ public class Stock extends Asset {
     //this returns the total value of all stocks owned
     @Override
     public double getTotalValue(){
-        return this.sharePrice * this.numOfStocks;
+        double total = this.sharePrice * this.numOfStocks;
+        return total;
     }
     
     //this returns the expected annual return
