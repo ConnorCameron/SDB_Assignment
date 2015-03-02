@@ -52,4 +52,10 @@ public class PrivateInvestment extends Asset {
     public double getAnnualReturn(String portCode){
        return (this.rateOfReturn * this.getTotalValue(portCode)) + (4 * this.quarterlyDivident);
     }
+    
+    @Override
+    public double getRisk(){
+       double O =  Math.pow(Math.E, (-100000/this.totalValue));
+       return this.risk + O;
+    }
 }
