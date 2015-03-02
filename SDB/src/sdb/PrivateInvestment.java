@@ -43,13 +43,13 @@ public class PrivateInvestment extends Asset {
     
     //Returns the total value of a private investment
     @Override
-    public double getTotalValue(){
+    public double getTotalValue(String portCode){
         return this.totalValue * this.stake;
     }
     
     //Returns the annual return of a private investment
     @Override
-    public double getAnnualReturn(){
-       return (this.rateOfReturn * this.getTotalValue()) + (4 * this.quarterlyDivident);
+    public double getAnnualReturn(String portCode){
+       return (this.rateOfReturn * this.getTotalValue(portCode)) + (4 * this.quarterlyDivident);
     }
 }

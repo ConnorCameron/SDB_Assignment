@@ -152,7 +152,7 @@ public class DataConverter {
                     Stock stock = new Stock(Double.parseDouble(token[3]), token[6], Double.parseDouble(token[7]), token[0], token[2], Double.parseDouble(token[4]) , Double.parseDouble(token[5]));
                     return stock;
                 } else if ("P".equals(token[1])) {
-                    PrivateInvestment pi = new PrivateInvestment(Double.parseDouble(token[3]), Double.parseDouble(token[6]), token[0], token[2], Double.parseDouble(token[5]), Double.parseDouble(token[4]));
+                    PrivateInvestment pi = new PrivateInvestment(Double.parseDouble(token[3]), Double.parseDouble(token[6]), token[0], token[2], Double.parseDouble(token[4]), Double.parseDouble(token[5]));
                     return pi;
                 }
         return null;
@@ -181,11 +181,11 @@ public class DataConverter {
                     String type = asset.getType();
                     if (type.equals("D")) {
                         Deposit deposit = (Deposit) asset;
-                        deposit.setBalance(Double.parseDouble(tokenAsset[1]));
+                        deposit.addBalance(portCode, Double.parseDouble(tokenAsset[1]));
                         portfolio.addAsset(deposit);
                     } else if (type.equals("S")) {
                         Stock stock = (Stock) asset;
-                        stock.setNumOfStocks(Double.parseDouble(tokenAsset[1]));
+                        stock.addNumOfStocks(portCode, Double.parseDouble(tokenAsset[1]));
                         portfolio.addAsset(stock);
                     } else if (type.equals("P")) {
                         PrivateInvestment pi = (PrivateInvestment) asset;

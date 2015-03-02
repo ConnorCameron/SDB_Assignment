@@ -71,7 +71,8 @@ public class SDBDemo {
                     } else {
                         fullBen = "none";
                     }
-                    System.out.println("Portfolio: " + portfolio.getPortfolioCode());
+                    String portCode = portfolio.getPortfolioCode();
+                    System.out.println("Portfolio: " + portCode);
                     System.out.println("------------------------------------------");
                     System.out.println("Owner: " + fullOwn);
                     System.out.println("Manager: " + fullMan);
@@ -83,7 +84,7 @@ public class SDBDemo {
 
                         while (itrA.hasNext()) {
                             Asset asset = itrA.next();
-                            System.out.printf("%10s    %40s  %15.2f %5.2f  $%15.2f  $%15.2f\n", asset.getCode(), asset.getLabel(), asset.getRateOfReturn(), asset.getRisk(), asset.getAnnualReturn(), asset.getTotalValue());
+                            System.out.printf("%10s    %40s  %15.2f %5.2f  $%15.2f  $%15.2f\n", asset.getCode(), asset.getLabel(), asset.getRateOfReturn(), asset.getRisk(), asset.getAnnualReturn(portCode), asset.getTotalValue(portCode));
                         }
                         System.out.println("                                                         --------------------------------------");
                         System.out.printf("                                                          Totals:        %.2f  $ %14.2f  $%15.2f", portfolio.getWeightedRisk(), portfolio.getAnnualReturn(), portfolio.getTotalValue());

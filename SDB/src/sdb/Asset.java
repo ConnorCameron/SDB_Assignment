@@ -49,12 +49,12 @@ public abstract class Asset {
     }
     
     // returns the total value
-    public double getTotalValue(){
+    public double getTotalValue(String portCode){
         return 0;
     }
     
     //returns the annual reuturn
-    public double getAnnualReturn(){
+    public double getAnnualReturn(String portCode){
         return 0;
     }
     
