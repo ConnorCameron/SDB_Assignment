@@ -46,11 +46,13 @@ public class Stock extends Asset {
         return this.stockSymbol;
     }
     
+    //Adds a stock pairing with a portfolio
     public void addNumOfStocks(String portCode, Double number) {
         Pair<String, Double> pair = Pair.make(portCode, number);
         this.numOfStocks.add(pair);
     }
     
+    //Removes a stock pairing with a portfolio
     public void removeNumOfStocks(String portCode) {
         Iterator<Pair<String, Double>> itr = this.numOfStocks.iterator();
         while(itr.hasNext()) {
@@ -85,7 +87,7 @@ public class Stock extends Asset {
     //this returns the expected annual return
     @Override
     public double getAnnualReturn(String portCode){
-        return (this.rateOfReturn * this.getTotalValue(portCode)) + (4 * this.quarterlyDivident);
+        return ((this.rateOfReturn * this.getTotalValue(portCode)) + (4.0 * this.quarterlyDivident));
     }
     
 }

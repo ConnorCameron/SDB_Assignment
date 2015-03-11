@@ -53,6 +53,7 @@ public class PrivateInvestment extends Asset {
        return (this.rateOfReturn * this.getTotalValue(portCode)) + (4 * this.quarterlyDivident);
     }
     
+    //Gets the risk using the omega measure
     @Override
     public double getRisk(){
        double O =  Math.pow(Math.E, (-100000/this.totalValue));

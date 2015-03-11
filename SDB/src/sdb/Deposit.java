@@ -25,11 +25,13 @@ public class Deposit extends Asset {
         super(code, label, rateOfReturn, risk);
     }
     
+    //Adds a balance pairing with a portfolio
     public void addBalance(String portCode, Double b) {
         Pair<String, Double> pair = Pair.make(portCode, b);
         this.balance.add(pair);
     }
     
+    //Removes a balance pairing with a portfolio
     public void removeBalance(String portCode) {
         Iterator<Pair<String, Double>> itr = this.balance.iterator();
         while(itr.hasNext()) {
@@ -72,6 +74,7 @@ public class Deposit extends Asset {
          return Math.pow(Math.E, this.rateOfReturn) - 1;
      }
      //this returns the annual return
+    @Override
      public double getAnnualReturn(String portCode){
         return this.getBalance(portCode) * (Math.pow(Math.E,this.rateOfReturn) - 1);
      }

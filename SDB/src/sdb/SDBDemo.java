@@ -47,14 +47,14 @@ public class SDBDemo {
                     Portfolio portfolio = itr.next();
                     String fullOwn = portfolio.getOwner().getLastName() + ", " + portfolio.getOwner().getFirstName();
                     String fullMan = portfolio.getBroker().getLastName() + ", " + portfolio.getOwner().getFirstName();
-                    System.out.printf("%10s        %25s    %20s    $%6.2f    $%13.2f    $%18.2f    $%13.2f    $%13.2f\n", portfolio.getPortfolioCode(), fullOwn, fullMan, portfolio.getFees(), portfolio.getCommissions(), portfolio.getWeightedRisk(), portfolio.getAnnualReturn(), portfolio.getTotalValue());
+                    System.out.printf("%10s        %25s    %20s    $%6.2f    $%13.2f    $%16.4f    $%13.2f    $%13.2f\n", portfolio.getPortfolioCode(), fullOwn, fullMan, portfolio.getFees(), portfolio.getCommissions(), portfolio.getWeightedRisk(), portfolio.getAnnualReturn(), portfolio.getTotalValue());
                     total += portfolio.getTotalValue();
                     areturn += portfolio.getAnnualReturn();
                     commissions += portfolio.getCommissions();
                     fees += portfolio.getFees();
                 }
                 
-                System.out.println("                                                              ----------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("                                                              --------------------------------------------------------------------------------------------");
                 System.out.printf("                                                               Total: $%7.2f   $%15.2f  $%36.2f  $%16.2f\n\n\n", fees, commissions, areturn, total);
                 System.out.println("Portfolio Details");
                 System.out.println("============================================================================");
@@ -84,9 +84,9 @@ public class SDBDemo {
 
                         while (itrA.hasNext()) {
                             Asset asset = itrA.next();
-                            System.out.printf("%10s    %40s  %15.2f %5.2f  $%15.2f  $%15.2f\n", asset.getCode(), asset.getLabel(), asset.getRateOfReturn(), asset.getRisk(), asset.getAnnualReturn(portCode), asset.getTotalValue(portCode));
+                            System.out.printf("%10s    %40s  %14.2f%% %5.2f  $%15.2f  $%15.2f\n", asset.getCode(), asset.getLabel(), (asset.getAnnualReturn(portCode) / asset.getTotalValue(portCode)) * 100, asset.getRisk(), asset.getAnnualReturn(portCode), asset.getTotalValue(portCode));
                         }
-                        System.out.println("                                                         --------------------------------------");
+                        System.out.println("                                                         ----------------------------------------------------------");
                         System.out.printf("                                                          Totals:        %.2f  $ %14.2f  $%15.2f", portfolio.getWeightedRisk(), portfolio.getAnnualReturn(), portfolio.getTotalValue());
                     }
                     System.out.printf("\n\n\n");
