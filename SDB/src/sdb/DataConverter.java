@@ -189,7 +189,7 @@ public class DataConverter {
                         portfolio.addAsset(stock);
                     } else if (type.equals("P")) {
                         PrivateInvestment pi = (PrivateInvestment) asset;
-                        pi.setStake(Double.parseDouble(tokenAsset[1]));
+                        pi.addStake(portCode, Double.parseDouble(tokenAsset[1]));
                         portfolio.addAsset(pi);
                     }
                 }
