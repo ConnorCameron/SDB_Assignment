@@ -149,10 +149,10 @@ public class DataConverter {
                     Deposit deposit = new Deposit(token[0], token[2], Double.parseDouble(token[3]), 0.0);
                     return deposit;
                 } else if ("S".equals(token[1])) {
-                    Stock stock = new Stock(Double.parseDouble(token[3]), token[6], Double.parseDouble(token[7]), token[0], token[1], Double.parseDouble(token[4]) , Double.parseDouble(token[5]));
+                    Stock stock = new Stock(Double.parseDouble(token[3]), token[6], Double.parseDouble(token[7]), token[0], token[2], Double.parseDouble(token[4]) , Double.parseDouble(token[5]));
                     return stock;
                 } else if ("P".equals(token[1])) {
-                    PrivateInvestment pi = new PrivateInvestment(Double.parseDouble(token[3]), Double.parseDouble(token[6]), token[0], token[1], Double.parseDouble(token[5]), Double.parseDouble(token[4]));
+                    PrivateInvestment pi = new PrivateInvestment(Double.parseDouble(token[3]), Double.parseDouble(token[6]), token[0], token[2], Double.parseDouble(token[4]), Double.parseDouble(token[5]));
                     return pi;
                 }
         return null;
@@ -165,33 +165,41 @@ public class DataConverter {
         Person owner = Person.findPerson(token[1], persons);
         Person broker = Person.findPerson(token[2], persons);
         Person benefit;
-        if (token[3].isEmpty()) {
-            benefit = null;
-        } else {
-            benefit = Person.findPerson(token[3], persons);
-        }
-        Portfolio portfolio = new Portfolio((Broker) broker, benefit, owner, portCode);
-        String [] tokenAssets = token[4].split(",");
-        
-        for(int i = 0; i < tokenAssets.length; i++) {
-            String [] tokenAsset = token[i].split(":");
-            Asset asset = Asset.findAsset(tokenAsset[0], assets);
-            String type = asset.getType();
-            if (type.equals('D')) {
-                Deposit deposit = (Deposit) asset;
-                deposit.setBalance(Double.parseDouble(tokenAsset[1]));
-                portfolio.addAsset(deposit);
-            } else if (type.equals('S')) {
-                Stock stock = (Stock) asset;
-                stock.setNumOfStocks(Double.parseDouble(tokenAsset[1]));
-                portfolio.addAsset(stock);
-            } else if (type.equals('P')) {
-                PrivateInvestment pi = (PrivateInvestment) asset;
-                pi.setStake(Double.parseDouble(tokenAsset[1]));
-                portfolio.addAsset(pi);
+        if (token.length > 3) {
+            if (token[3].isEmpty()) {
+                benefit = null;
+            } else {
+                benefit = Person.findPerson(token[3], persons);
             }
+            Portfolio portfolio = new Portfolio((Broker) broker, benefit, owner, portCode);
+            if (token.length > 4) {
+                String [] tokenAssets = token[4].split(",");
+
+                for(int i = 0; i < tokenAssets.length; i++) {
+                    String [] tokenAsset = tokenAssets[i].split(":");
+                    Asset asset = Asset.findAsset(tokenAsset[0], assets);
+                    String type = asset.getType();
+                    if (type.equals("D")) {
+                        Deposit deposit = (Deposit) asset;
+                        deposit.addBalance(portCode, Double.parseDouble(tokenAsset[1]));
+                        portfolio.addAsset(deposit);
+                    } else if (type.equals("S")) {
+                        Stock stock = (Stock) asset;
+                        stock.addNumOfStocks(portCode, Double.parseDouble(tokenAsset[1]));
+                        portfolio.addAsset(stock);
+                    } else if (type.equals("P")) {
+                        PrivateInvestment pi = (PrivateInvestment) asset;
+                        pi.addStake(portCode, Double.parseDouble(tokenAsset[1]));
+                        portfolio.addAsset(pi);
+                    }
+                }
+            }
+            return portfolio;
+        } else {
+            Portfolio portfolio = new Portfolio((Broker) broker, null, owner, portCode);
+            return portfolio;
         }
-        return portfolio;
+        
     }
     
     

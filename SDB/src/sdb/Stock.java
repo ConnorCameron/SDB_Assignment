@@ -3,6 +3,10 @@
  */
 package sdb;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  *
  * @author Andrew
@@ -11,7 +15,7 @@ public class Stock extends Asset {
     private double quarterlyDivident;
     private String stockSymbol;
     private double sharePrice;
-    private double numOfStocks;
+    private Set<Pair<String, Double>> numOfStocks = new HashSet<Pair<String, Double>>();
 
     //This is the constructer for the stock class
     public Stock(double quarterlyDivident, String stockSymbol, double sharePrice, String code, String label, double rateOfReturn, double risk) {
@@ -41,27 +45,49 @@ public class Stock extends Asset {
     public String getStockSymbol() {
         return this.stockSymbol;
     }
-
-    //this returns the number of stocks owned
-    public double getNumOfStocks() {
-        return this.numOfStocks;
+    
+    //Adds a stock pairing with a portfolio
+    public void addNumOfStocks(String portCode, Double number) {
+        Pair<String, Double> pair = Pair.make(portCode, number);
+        this.numOfStocks.add(pair);
     }
-
-    //this sets the number of stocks owned 
-    public void setNumOfStocks(double numOfStocks) {
-        this.numOfStocks = numOfStocks;
+    
+    //Removes a stock pairing with a portfolio
+    public void removeNumOfStocks(String portCode) {
+        Iterator<Pair<String, Double>> itr = this.numOfStocks.iterator();
+        while(itr.hasNext()) {
+            Pair<String, Double> pair = itr.next();
+            String currentCode = pair.getFirst();
+            if (currentCode.equals(portCode)) {
+                this.numOfStocks.remove(pair);
+            }
+        }
+    }
+    
+    //this returns the number of stocks owned
+    public Double getNumOfStocks(String portCode) {
+        Iterator<Pair<String, Double>> itr = this.numOfStocks.iterator();
+        while(itr.hasNext()) {
+            Pair<String, Double> pair = itr.next();
+            String currentCode = pair.getFirst();
+            if (currentCode.equals(portCode)) {
+                return pair.getSecond();
+            }
+        }
+        return null;
     }
     
     //this returns the total value of all stocks owned
     @Override
-    public double getTotalValue(){
-        return this.sharePrice * this.numOfStocks;
+    public double getTotalValue(String portCode){
+        double total = this.sharePrice * this.getNumOfStocks(portCode);
+        return total;
     }
     
     //this returns the expected annual return
     @Override
-    public double getAnnualReturn(){
-        return (this.rateOfReturn * this.getTotalValue()) + (4 * this.quarterlyDivident);
+    public double getAnnualReturn(String portCode){
+        return ((this.rateOfReturn * this.getTotalValue(portCode)) + (4.0 * this.quarterlyDivident));
     }
     
 }

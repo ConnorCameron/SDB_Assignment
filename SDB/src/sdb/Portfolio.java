@@ -72,7 +72,7 @@ public class Portfolio {
         Iterator<Asset> itr = this.assets.iterator();
         double result = 0;
         while (itr.hasNext()){
-            result = itr.next().getTotalValue() + result;
+            result = itr.next().getTotalValue(this.portfolioCode) + result;
         }
         return result;
     }
@@ -82,7 +82,7 @@ public class Portfolio {
         Iterator<Asset> itr = this.assets.iterator();
         double result = 0;
         while (itr.hasNext()){
-            result = itr.next().getAnnualReturn() + result;
+            result = itr.next().getAnnualReturn(this.portfolioCode) + result;
         }
         return result;
     }
@@ -103,7 +103,7 @@ public class Portfolio {
         double result = 0;
         while(itr.hasNext()){
             Asset a = itr.next();
-            result = result + (a.getRisk() * (a.getTotalValue()/V));
+            result = result + (a.getRisk() * (a.getTotalValue(this.portfolioCode)/V));
         }
         return result;
     }

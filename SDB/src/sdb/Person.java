@@ -50,6 +50,7 @@ public class Person {
         return this.address;
     }  
     
+    //Finds a person based on alphanumeric code
     public static Person findPerson(String code, Set<Person> persons) {
         Iterator<Person> itr = persons.iterator();
         while (itr.hasNext()) {

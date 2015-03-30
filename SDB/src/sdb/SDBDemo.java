@@ -6,20 +6,8 @@
 
 package sdb;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -34,6 +22,7 @@ public class SDBDemo {
         
         Set<Person> persons;
         Set<Asset> assets;
+        Set<Portfolio> portfolios;
         
         
         //Calls DataConverter
@@ -42,50 +31,65 @@ public class SDBDemo {
         //Calls the dataconverter
         persons = converter.processPersons("Persons.dat");
         assets = converter.processAssets("Assets.dat");
+        portfolios = converter.processPortfolios("Portfolios.dat", assets, persons);
         
-        /* Xstream and Gson setup for person and assets, then prints them out */
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        XStream xstream = new XStream(new DomDriver());
         
-        xstream.alias("person", Person.class);
-        xstream.alias("person", Broker.class);
-        xstream.alias("persons", Set.class);
-        
-        String json = gson.toJson(persons);
-        String xml = xstream.toXML(persons);
-        
-        try {
-            PrintWriter personWriterJSON = new PrintWriter("data/Person.json", "UTF-8");
-            PrintWriter personWriterXML = new PrintWriter("data/Person.xml", "UTF-8");
-            PrintWriter assetWriterJSON = new PrintWriter("data/Asset.json", "UTF-8");
-            PrintWriter assetWriterXML = new PrintWriter("data/Asset.xml", "UTF-8");
-            
-            personWriterJSON.println(json);
-            personWriterXML.println(xml);
-        
-            xstream.alias("assets", Set.class);
-            xstream.alias("asset", Asset.class);
-            xstream.alias("asset", Deposit.class);
-            xstream.alias("asset", Stock.class);
-            xstream.alias("asset", PrivateInvestment.class);
+                System.out.println("Portfolio Summary Report");
+                System.out.println("===============================================================================================================================");
+                System.out.printf("%10s    %25s  %20s  %14s  %15s  %20s  %15s  %15s\n", "Portfolio", "Owner", "Manger", "Fees", "Commisions", "Weighted Risk", "Return", "Total");
+                /* Goes through portfolios and keeps track of totals */
+                Iterator<Portfolio> itr = portfolios.iterator();
+                double total = 0;
+                double areturn = 0;
+                double commissions = 0;
+                double fees = 0;
+                while (itr.hasNext()) {
+                    Portfolio portfolio = itr.next();
+                    String fullOwn = portfolio.getOwner().getLastName() + ", " + portfolio.getOwner().getFirstName();
+                    String fullMan = portfolio.getBroker().getLastName() + ", " + portfolio.getOwner().getFirstName();
+                    System.out.printf("%10s        %25s    %20s    $%6.2f    $%13.2f    $%16.4f    $%13.2f    $%13.2f\n", portfolio.getPortfolioCode(), fullOwn, fullMan, portfolio.getFees(), portfolio.getCommissions(), portfolio.getWeightedRisk(), portfolio.getAnnualReturn(), portfolio.getTotalValue());
+                    total += portfolio.getTotalValue();
+                    areturn += portfolio.getAnnualReturn();
+                    commissions += portfolio.getCommissions();
+                    fees += portfolio.getFees();
+                }
+                
+                System.out.println("                                                              --------------------------------------------------------------------------------------------");
+                System.out.printf("                                                               Total: $%7.2f   $%15.2f  $%36.2f  $%16.2f\n\n\n", fees, commissions, areturn, total);
+                System.out.println("Portfolio Details");
+                System.out.println("============================================================================");
+                
+                Iterator<Portfolio> itr2 = portfolios.iterator();
+                /* Gets the details of each portfolio with their assets */
+                while (itr2.hasNext()) {
+                    Portfolio portfolio = itr2.next();
+                    String fullOwn = portfolio.getOwner().getLastName() + ", " + portfolio.getOwner().getFirstName();
+                    String fullMan = portfolio.getBroker().getLastName() + ", " + portfolio.getOwner().getFirstName();
+                    String fullBen;
+                    if (portfolio.getBeneficiary() != null) {
+                        fullBen = portfolio.getBeneficiary().getLastName() + ", " + portfolio.getOwner().getFirstName();
+                    } else {
+                        fullBen = "none";
+                    }
+                    String portCode = portfolio.getPortfolioCode();
+                    System.out.println("Portfolio: " + portCode);
+                    System.out.println("------------------------------------------");
+                    System.out.println("Owner: " + fullOwn);
+                    System.out.println("Manager: " + fullMan);
+                    System.out.println("Beneficiary: " + fullBen);
+                    Iterator<Asset> itrA = portfolio.getAssets().iterator();
+                    if (itrA.hasNext()) {
+                        System.out.println("Assets");
+                        System.out.printf("%10s    %40s  %15s  %5s  %15s  %15s\n", "Code", "Asset", "Return Rate", "Risk", "Annual Return", "Total");
 
-            json = gson.toJson(assets);
-            xml = xstream.toXML(assets);
-            assetWriterJSON.println(json);
-            assetWriterXML.println(xml);
-            
-            personWriterJSON.close();
-            personWriterXML.close();
-            assetWriterJSON.close();
-            assetWriterXML.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("File not found...");
-            Logger.getLogger(SDBDemo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            System.out.println("Encoding not supported...");
-            Logger.getLogger(SDBDemo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+                        while (itrA.hasNext()) {
+                            Asset asset = itrA.next();
+                            System.out.printf("%10s    %40s  %14.2f%% %5.2f  $%15.2f  $%15.2f\n", asset.getCode(), asset.getLabel(), (asset.getAnnualReturn(portCode) / asset.getTotalValue(portCode)) * 100, asset.getRisk(), asset.getAnnualReturn(portCode), asset.getTotalValue(portCode));
+                        }
+                        System.out.println("                                                         ----------------------------------------------------------");
+                        System.out.printf("                                                          Totals:        %.2f  $ %14.2f  $%15.2f", portfolio.getWeightedRisk(), portfolio.getAnnualReturn(), portfolio.getTotalValue());
+                    }
+                    System.out.printf("\n\n\n");
+                }
     }
-    
 }

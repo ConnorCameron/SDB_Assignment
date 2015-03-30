@@ -6,21 +6,54 @@
 
 package sdb;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  *
  * @author Andrew
  */
 public class Deposit extends Asset {
-    private double balance;
+    
+    
+    
+    private Set<Pair<String, Double>> balance = new HashSet<Pair<String, Double>>();
 
     //this constrcuts the deposit account
     public Deposit(String code, String label, double rateOfReturn, double risk) {
         super(code, label, rateOfReturn, risk);
     }
     
+    //Adds a balance pairing with a portfolio
+    public void addBalance(String portCode, Double b) {
+        Pair<String, Double> pair = Pair.make(portCode, b);
+        this.balance.add(pair);
+    }
+    
+    //Removes a balance pairing with a portfolio
+    public void removeBalance(String portCode) {
+        Iterator<Pair<String, Double>> itr = this.balance.iterator();
+        while(itr.hasNext()) {
+            Pair<String, Double> pair = itr.next();
+            String currentCode = pair.getFirst();
+            if (currentCode.equals(portCode)) {
+                this.balance.remove(pair);
+            }
+        }
+    }
+    
     //this returns the balence
-    public double getBalance() {
-        return this.balance;
+    public Double getBalance(String portCode) {
+        Iterator<Pair<String, Double>> itr = this.balance.iterator();
+        while(itr.hasNext()) {
+            Pair<String, Double> pair = itr.next();
+            String currentCode = pair.getFirst();
+            if (currentCode.equals(portCode)) {
+                return pair.getSecond();
+            }
+        }
+        return null;
     }
     
     //this returns the type of asset it is
@@ -28,26 +61,22 @@ public class Deposit extends Asset {
     public String getType() {
         return "D";
     }
-
-    //this sets the balence
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
     
     //this returns the balence, which is the total value
     @Override
-     public double getTotalValue(){
-         return this.balance;
+     public double getTotalValue(String portCode){
+         return this.getBalance(portCode);
      }
      
      //this returns the percentage rate used for annual return
-     public double getPercentageRate() {
+     @Override
+     public double getRateOfReturn() {
          return Math.pow(Math.E, this.rateOfReturn) - 1;
      }
      //this returns the annual return
-     @Override
-     public double getAnnualReturn(){
-        return this.balance * (Math.pow(Math.E,this.rateOfReturn) - 1);
+    @Override
+     public double getAnnualReturn(String portCode){
+        return this.getBalance(portCode) * (Math.pow(Math.E,this.rateOfReturn) - 1);
      }
      
      //this returns the risk, which is always 0
